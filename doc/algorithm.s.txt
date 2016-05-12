@@ -1,0 +1,36 @@
+Aria Shahverdi
+========================
+we use rowptr to point at the elements which are non zero. The col_ind will show the index of the non_zero elements which will be used to read the corresponding values from the vector and the values matrix is just the value at those points. what we do is to have two pointers moving in the rowptr array. we call them ptr_k0 and ptr_k1. we move k0 as long as it’s smaller than k1. as we do that we the index value from col_ind and use that to find the value of the vector. then we multiply those two values and sum them up in order to get the final result corresponding to the row which we are processing. each row has a pointer pointing to to the start of the index in the col_ind array. If one row does not have any non zero value it’s pointer is going to be equal to the next pointer. We multiply each nnz element with a value from the vector. We are also going to iterate over the m elements in the rowptr array to see which are the nonzero elements. So the complexity should be T(n) = O(nnz + m). Since we are in the parallel case the work complexity is the same as time complexity.
+
+code:
+int main(){
+
+	// WRITE YOUR CODE HERE	
+	int k;
+	int ptr, ptr_k0, ptr_k1;
+	int diff_ptr;
+	int idx;
+	for (k = 0; k < m ; k++)
+	{
+		result[k] = 0;
+		ptr_k0 = rowptr[k];
+		ptr_k1 = rowptr[k+1];
+		ptr = ptr_k0;
+		while (ptr_k0 < ptr_k1)
+		{	
+			diff_ptr = ptr_k0 - ptr;	
+			idx = col_ind[ptr_k0];
+			result[k] += values[ptr + diff_ptr]*vector[idx];
+			ptr_k0++;
+		}
+	}
+
+	// END OF YOUR CODE
+
+	// DONT MODIFY THE REST
+	#ifdef PRINT_RESULT
+	int i;
+	for(i=0;i<m;i++)
+		printf("%d\n",result[i]);
+	#endif
+}

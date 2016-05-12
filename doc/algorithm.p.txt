@@ -1,0 +1,38 @@
+Aria Shahverdi
+========================
+For the parallel case we are going to create m+1 thread which each of them will handle one row. We assign two pointers to each thread namely 	ptr_k0, ptr_k1 which points to the rowptr array. We have to process each row separately. So let’s say one row get’s it’ work done really fast because it has only one none zero element but we still have to wait for the row which has maximum number of non_zero elements (max_nnz). The work for the parallel case should be equal to the work which we done in the serial case because are essentially doing the same algorithm but with a small modification so W(n) = O(nnz + m). The time it takes to do one row is basically m/p*nnz_i which p is the number of processor and nnz_i is the number of non zero elements in row i. So If we replace nnz_i with max_nnz we get the higher bound for the time so we can say T(n) = O(m/p*max_nnz) 
+
+Code:
+int main(){
+
+	// WRITE YOUR CODE HERE	
+	
+	spawn (0, m)
+	{
+		int ptr, ptr_k0, ptr_k1;
+		int diff_ptr;
+		int idx;
+		result[$] = 0;
+		ptr_k0 = rowptr[$];
+		ptr_k1 = rowptr[$+1];
+		ptr = ptr_k0;
+		while (ptr_k0 < ptr_k1)
+		{	
+			diff_ptr = ptr_k0 - ptr;
+			idx = col_ind[ptr_k0];
+			result[$] += values[ptr + diff_ptr]*vector[idx];
+			ptr_k0++;
+		}
+	}
+
+
+
+	//// END OF YOUR CODE
+
+	// DONT MODIFY THE REST
+	#ifdef PRINT_RESULT
+	int i;
+	for(i=0;i<m;i++)
+		printf("%d\n",result[i]);
+	#endif
+}

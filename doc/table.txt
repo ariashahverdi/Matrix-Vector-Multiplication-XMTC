@@ -1,0 +1,9 @@
+Aria Shahverdi
+========================
+
+Input_size      Small		Medium		Large		X-large
+matvec.s.c	7,858		49,712		1,187,595	3,735,195
+matvec.p.c	2,097		4,555		76,688		242,791
+speedup		3.7		10.9		15.4		15.3
+
+the medium case is 4 times bigger but the nnz is bigger for the medium case, that’s why it time is not exactly 4 times bigger but it’s bigger even more than 4 times. Another interesting case is the parallel Large and X-Large which are around 3 times bigger in size and time is also 3 times bigger since the max_nnz is equal for both of them and nnz doesn’t have an effect on timing based on my explanation which can be seen here as well.

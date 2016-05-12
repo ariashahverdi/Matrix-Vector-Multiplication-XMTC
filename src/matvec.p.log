@@ -1,0 +1,82 @@
+pre-Check
+post-Check
+################################################################################
+#  STAGE 0 : Checking for errors. If this check passes you should not encounter
+#            other compilation errors before the post processing and linking
+#  /opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c 
+################################################################################
+/opt/xmt/xmtcc/xmtcc-core32 -S -include xmtio.h -D _XMT_NTCUS=64  -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD -O1 -std=gnu99  -fxmt-nTCUs=64 -fxmt-stack-perTCU /opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c -o checktmp.NDcd8i
+/opt/xmt/xmtcc/gcc-xmt32/bin/xmt32-xmt32-elf-gcc -fno-delayed-branch -mno-check-zero-division  -mno-explicit-relocs  -S -include xmtio.h -D _XMT_NTCUS=64 -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD -O1 -std=gnu99 -fxmt-nTCUs=64 -fxmt-stack-perTCU /opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c -o checktmp.NDcd8i
+Checking (/opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c) was successful
+################################################################################
+#  STAGE 0 : Checking for errors. If this check passes you should not encounter
+#            other compilation errors before the post processing and linking
+#  matvec.p.c 
+################################################################################
+/opt/xmt/xmtcc/xmtcc-core32 -S -include xmtio.h -D _XMT_NTCUS=64  -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD -O1 -std=gnu99  -fxmt-nTCUs=64 -fxmt-stack-perTCU matvec.p.c -o checktmp.OTJxSh
+/opt/xmt/xmtcc/gcc-xmt32/bin/xmt32-xmt32-elf-gcc -fno-delayed-branch -mno-check-zero-division  -mno-explicit-relocs  -S -include xmtio.h -D _XMT_NTCUS=64 -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD -O1 -std=gnu99 -fxmt-nTCUs=64 -fxmt-stack-perTCU matvec.p.c -o checktmp.OTJxSh
+Checking (matvec.p.c) was successful
+################################################################################
+#  STAGE 1 : Pre-Processing
+#  /opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c -> xmtc.i
+################################################################################
+/opt/xmt/xmtcc/xmtcc-core32 -E -include xmtio.h -D _XMT_NTCUS=64  -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD /opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c -o /tmp/xmtcc.R5iQlxsEqO/xmtc.i
+/opt/xmt/xmtcc/gcc-xmt32/bin/xmt32-xmt32-elf-gcc -fno-delayed-branch -mno-check-zero-division  -mno-explicit-relocs  -E -include xmtio.h -D _XMT_NTCUS=64 -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD /opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c -o /tmp/xmtcc.R5iQlxsEqO/xmtc.i
+Pre-Processing (/opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtc.c) was successful
+################################################################################
+#  STAGE 1 : Pre-Processing
+#  matvec.p.c -> matvec.p.i
+################################################################################
+/opt/xmt/xmtcc/xmtcc-core32 -E -include xmtio.h -D _XMT_NTCUS=64  -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD matvec.p.c -o /tmp/xmtcc.R5iQlxsEqO/matvec.p.i
+/opt/xmt/xmtcc/gcc-xmt32/bin/xmt32-xmt32-elf-gcc -fno-delayed-branch -mno-check-zero-division  -mno-explicit-relocs  -E -include xmtio.h -D _XMT_NTCUS=64 -include ../data/xlarge/matvec.h -D _XMT_GRAIN_PER_TD matvec.p.c -o /tmp/xmtcc.R5iQlxsEqO/matvec.p.i
+Pre-Processing (matvec.p.c) was successful
+################################################################################
+#  STAGE 2 : CIL : Source to source transformations (outlining, clustering, ...)
+#  ATTENTION: An error like 'xmtc.i:12 ...' means there is something wrong  
+#             on line 12. And please forgive CIL's cryptic error messages ! :)  
+#  xmtc.i -> xmtc.cil.c
+################################################################################
+/opt/xmt/xmtcc/xmtcilly.asm.exe   --grainPerTD --doXMTNSpSerializer --dontXMTCoutliningInner --dontXMTCouterSpawnConversion --dontXMTCdynamicSerializer --disallowDuplication /tmp/xmtcc.R5iQlxsEqO/xmtc.i --out /tmp/xmtcc.R5iQlxsEqO/xmtc.cil.c
+CIL (xmtc.i) was successful
+################################################################################
+#  STAGE 2 : CIL : Source to source transformations (outlining, clustering, ...)
+#  ATTENTION: An error like 'matvec.p.i:12 ...' means there is something wrong  
+#             on line 12. And please forgive CIL's cryptic error messages ! :)  
+#  matvec.p.i -> matvec.p.cil.c
+################################################################################
+/opt/xmt/xmtcc/xmtcilly.asm.exe   --grainPerTD --doXMTNSpSerializer --dontXMTCoutliningInner --dontXMTCouterSpawnConversion --dontXMTCdynamicSerializer --disallowDuplication /tmp/xmtcc.R5iQlxsEqO/matvec.p.i --out /tmp/xmtcc.R5iQlxsEqO/matvec.p.cil.c
+CIL (matvec.p.i) was successful
+################################################################################
+#  STAGE 3 : Compiling CIL output File.
+#  xmtc.cil.c -> xmtc.s
+################################################################################
+/opt/xmt/xmtcc/xmtcc-core32 -S -O1 -std=gnu99 -fxmt-nTCUs=64 -fxmt-stack-perTCU /tmp/xmtcc.R5iQlxsEqO/xmtc.cil.c -o /tmp/xmtcc.R5iQlxsEqO/xmtc.s
+/opt/xmt/xmtcc/gcc-xmt32/bin/xmt32-xmt32-elf-gcc -fno-delayed-branch -mno-check-zero-division  -mno-explicit-relocs  -S -O1 -std=gnu99 -fxmt-nTCUs=64 -fxmt-stack-perTCU /tmp/xmtcc.R5iQlxsEqO/xmtc.cil.c -o /tmp/xmtcc.R5iQlxsEqO/xmtc.s
+/opt/xmt/xmtcc.master/gcc-xmt32/bin/../lib/gcc/xmt32-xmt32-elf/4.0.2/../../../../xmt32-xmt32-elf/include/xmtio.h:32: warning: conflicting types for built-in function ‘printf’
+Compiling File (xmtc.cil.c) was successful
+################################################################################
+#  STAGE 3 : Compiling CIL output File.
+#  matvec.p.cil.c -> matvec.p.s
+################################################################################
+/opt/xmt/xmtcc/xmtcc-core32 -S -O1 -std=gnu99 -fxmt-nTCUs=64 -fxmt-stack-perTCU /tmp/xmtcc.R5iQlxsEqO/matvec.p.cil.c -o /tmp/xmtcc.R5iQlxsEqO/matvec.p.s
+/opt/xmt/xmtcc/gcc-xmt32/bin/xmt32-xmt32-elf-gcc -fno-delayed-branch -mno-check-zero-division  -mno-explicit-relocs  -S -O1 -std=gnu99 -fxmt-nTCUs=64 -fxmt-stack-perTCU /tmp/xmtcc.R5iQlxsEqO/matvec.p.cil.c -o /tmp/xmtcc.R5iQlxsEqO/matvec.p.s
+Compiling File (matvec.p.cil.c) was successful
+################################################################################
+#  STAGE 4 : Post Processing
+#  xmtc.s -> xmtc.p
+################################################################################
+/opt/xmt/xmtcc/xmt-post -xmt32 -fpga -npSer /tmp/xmtcc.R5iQlxsEqO/xmtc.s /tmp/xmtcc.R5iQlxsEqO/xmtc.p
+Post-Processing File (xmtc.s) was successful
+################################################################################
+#  STAGE 4 : Post Processing
+#  matvec.p.s -> matvec.p.p
+################################################################################
+/opt/xmt/xmtcc/xmt-post -xmt32 -fpga -npSer /tmp/xmtcc.R5iQlxsEqO/matvec.p.s /tmp/xmtcc.R5iQlxsEqO/matvec.p.p
+Post-Processing File (matvec.p.s) was successful
+################################################################################
+#  STAGE 5 : Linking.
+#   /tmp/xmtcc.R5iQlxsEqO/xmtc.p /tmp/xmtcc.R5iQlxsEqO/matvec.p.p -> matvec.p.sim + matvec.p.b
+################################################################################
+/opt/xmt/xmtcc/xmt-linker -xmt32 -fpga /opt/xmt/xmtcc/gcc-xmt32/xmt32-xmt32-elf/lib/xmtio.p /tmp/xmtcc.R5iQlxsEqO/xmtc.p /tmp/xmtcc.R5iQlxsEqO/matvec.p.p ../data/xlarge/matvec.xbo -o matvec.p.sim
+Linking was successful
+End of Linking
